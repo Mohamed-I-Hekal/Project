@@ -1,0 +1,115 @@
+#include <iostream>
+#include <string>
+#include <iomanip> 
+using namespace std;
+
+void addContact(string str[], string contNo[], int n) {	// Function to add contacts
+	cout << "Enter contact name: ";
+	getline(cin, str[n]); // Statement for string to input contact name
+	cout << "Enter contact number: ";
+	getline(cin, contNo[n]); // Statement for string to input contact number
+}
+
+void deleteContact(string str[],string arr[], int n) {	// Function to delete contacts
+	if (n> 50) {
+		str->erase(n);
+		arr->erase(n);
+	}
+}
+
+int searchContact(string str[],string arr[], string cont) {	// Function to search for a contact with name
+	for (int i = 0; i < 50; i++) {
+		if (cont == str[i] || cont == arr[i]) {
+			return i;
+		}
+			
+	}
+	return -1;
+}
+
+void listContacts(string str[],string arr[],int n) {	// Function to list the contacts
+	int temp=1;
+	cout  << "Names" << setw(55) << "Numbers" << endl;
+	for (int i = 0; i < n; i++) {
+		cout << temp << "." << str[i] << setw(50) << arr[i] << endl;
+		temp++;
+	}
+}
+
+
+
+
+int main() { //main
+	int num = 0;
+	char choise;
+	int index;
+	string phBook[50];;
+	string phBookNum[50];
+	string name;
+
+	while (1) {
+		cout << setw(55) << "Welcome" << endl;
+		cout << "1. Add new contact" << endl;
+		cout << "2. Delete specific contact" << endl;
+		cout << "3. Search for a contact" << endl;
+		cout << "4. List contacts" << endl;
+		cout << "5. Exit" << endl;
+
+		cin >> choise;
+		cin.ignore(); // Clear buffer
+
+		switch (choise) {
+
+		case '1':
+			if (num <= 50) {
+				addContact(phBook, phBookNum, num);
+				num++;
+			}
+			else
+				cout << "Number of contacts is full";
+			break;
+
+		case '2':
+			cout << "Enter contact name you wish to delete: ";
+			getline(cin, name);
+			index = searchContact(phBook, phBookNum, name);
+			if (index == -1) {
+				cout << "Contact not found" << endl;
+			}
+			else {
+				deleteContact(phBook,phBookNum, index);
+				cout << "Contact deleted" << endl;
+			}
+			break;
+
+		case '3':
+			cout << "Enter contact to search for: ";
+			getline(cin, name);
+			index = searchContact(phBook, phBookNum, name);
+			if (index == -1) {
+				cout << "Contact not found";
+			}
+			else {
+				cout << "Name: ";
+				cout << phBook[index];
+				cout << endl;
+				cout << "Number: ";
+				cout << phBookNum[index];
+				cout << endl;
+			}
+			break;
+
+		case '4':
+			listContacts(phBook, phBookNum, num);
+			break;
+
+		case '5':
+
+			return 0;
+
+		default:
+			cout << "Invalid choise" << endl;
+
+		}
+	}
+}
